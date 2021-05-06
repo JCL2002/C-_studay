@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define Type unsigned long long //定义函数的传入和返回类型
+#define Type double //定义函数的传入和返回类型
 Type power(Type x,unsigned long long n){//x的n次方
 	Type res=1;
 	while(n){
@@ -9,4 +9,10 @@ Type power(Type x,unsigned long long n){//x的n次方
 		n>>=1;
 	}
 	return res;
+}
+int main(){
+	Type a;unsigned long long b;
+	cin >>a >>b;
+	cout <<power(a,b);
+	return 0;
 }
