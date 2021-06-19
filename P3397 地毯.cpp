@@ -1,30 +1,35 @@
 #include<bits/stdc++.h>
 using namespace std;
-int l[1002][1002];
+//差分数组
+int sum[1002][1002];
+int n,m;
 int main(){
-	int n,m;
-	cin >>n >>m;
-	int a,b,c,d;
+	cin >>n>>m;
 	for(int i=0;i<m;i++){
-		scanf("%d %d %d %d",&a,&b,&c,&d);
-		//两个端点做标记
-		l[a][b]++;
-		l[a][d+1]--;
-		for(int j=a+1;j<=c;j++){
-			l[j][b]++;
-			l[j][d+1]--;
+		int x1,y1,x2,y2;
+		scanf("%d %d %d %d",&x1,&y1,&x2,&y2);
+		for(int y=y1;y<=y2+1;y++){
+			if(y==y1){//起始列
+				for(int x=x1;x<=x2;x++){
+					sum[x][y]++;
+				}
+			}
+			if(y==y2+1){
+				for(int x=x1;x<=x2;x++){
+					sum[x][y]--;
+				}
+			}
 		}
 	}
-	int sum=0;
 	for(int i=1;i<=n;i++){
+		int res=0;
 		for(int j=1;j<=n;j++){
-			sum+=l[i][j];
-			printf("%d",sum);
+			res+=sum[i][j];
+			printf("%d",res);
 			if(j!=n){
 				printf(" ");
 			}
 		}
-		sum=0;
 		printf("\n");
 	}
 	return 0;
