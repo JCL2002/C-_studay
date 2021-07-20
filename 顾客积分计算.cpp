@@ -4,7 +4,7 @@ class Customer{
 	public:
 		double score;
 		virtual double getPoints()=0;
-		virtual void recordPoints(double m);
+		virtual void recordPoints(double m)=0;
 };
 class  OrdinaryCustomer:public Customer{
 	public:
