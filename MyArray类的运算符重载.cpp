@@ -1,67 +1,72 @@
 #include<bits/stdc++.h>
 using namespace std;
-class MyArray{
-	private:
-		int size;
-		int *ptr;
-	public:
-		MyArray(){
-			
-		}
-		MyArray(int n){
-			ptr=new int[n];
-			size=n;
-		}
-		int& operator[](int a){
-			return ptr[a];
-		}
-		int getSize(){
-			return size;
-		}
-		MyArray(MyArray& b){
-			size=b.size;
-			ptr=(int*)malloc(sizeof(int)*b.size);
-			for(int i=0;i<size;i++){
-				ptr[i]=b[i];
-			}
-		}
-		friend ostream& operator<<(ostream& out,const MyArray &a);
-		MyArray operator+(MyArray& b){
-			MyArray c(b.size);
-			for(int i=0;i<b.size;i++){
-				c[i]=ptr[i]+b[i];
-			}
-			return c;
-		}
-		MyArray operator-(MyArray& b){
-			MyArray c(b.size);
-			for(int i=0;i<b.size;i++){
-				c[i]=ptr[i]-b[i];
-			}
-			return c;
-		}
-		int operator*(MyArray& b){
-			int sum=0;
-			for(int i=0;i<b.size;i++){
-				sum+=(ptr[i]*b[i]);
-			}
-			return sum;
-		}
-		~MyArray(){
-			free(ptr);//释放内存
-		}
-};
-ostream& operator<<(ostream& out,MyArray &a){//<<的重载
-	for(int i=0;i<5;i++){
-		out << a[i];
-		if(i<4){
-			out <<',';
+
+class MyArray {
+private:
+	int size;
+	int* ptr;
+	friend ostream& operator<<(ostream& out, const MyArray& A);
+public:
+	MyArray(int n) :size{ n } {
+		ptr = new int[size];
+	}
+	MyArray(const MyArray& o1) {
+		size = o1.size;
+		ptr = new int[size];
+		for (int i = 0; i < size; i++) {
+			*(ptr + i) = *(o1.ptr + i);
 		}
 	}
-	out <<endl;
+	MyArray() {
+		size = 1;
+		ptr = new int[1];
+	}
+	~MyArray() {
+		delete[]ptr;
+	}
+	int getSize() {
+		return size;
+	}
+	int& operator[](int i) {
+		return *(ptr + i);
+	}
+	void operator=(const MyArray& o1) {
+		size = o1.size;
+		ptr = new int[size];
+		for (int i = 0; i < size; i++) {
+			*(ptr + i) = *(o1.ptr + i);
+		}
+	}
+	MyArray operator+(const MyArray& o1) {
+		MyArray o2(o1.size);
+		for (int i = 0; i < size; i++) {
+			*(o2.ptr + i) = *(o1.ptr + i) + *(ptr + i);
+		}
+		return o2;
+	}
+	MyArray operator-(const MyArray& o1) {
+		MyArray o2(o1.size);
+		for (int i = 0; i < size; i++) {
+			*(o2.ptr + i) = *(ptr + i) - *(o1.ptr + i);
+		}
+		return o2;
+	}
+	int operator*(const MyArray& o1) {
+		int sum = 0;
+		for (int i = 0; i < size; i++) {
+			sum += *(o1.ptr + i) * *(ptr + i);
+		}
+		return sum;
+	}
+};
+ostream& operator<<(ostream& out, const MyArray& A) {
+	cout << A.ptr[0];
+	for (int i = 1; i < A.size; i++) {
+		cout << "," << *(A.ptr + i);
+	}
+	cout << endl;
 	return out;
 }
-
 int main(){
 	int n;
 	cin>>n;
