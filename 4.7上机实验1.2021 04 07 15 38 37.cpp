@@ -1,4 +1,5 @@
 #include<iostream>
+using namespace std;
 class fun{
 	public:
 		inline int GetMax(int a,int b){
